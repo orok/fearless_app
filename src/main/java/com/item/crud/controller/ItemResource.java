@@ -42,4 +42,25 @@ public class ItemResource {
             .body(result);
     }
 
+    @PutMapping("/items/{id}")
+    public ResponseEntity<Item> updateItem(@PathVariable(value = "id", required = false) final Long id, @RequestBody Item item)
+        throws URISyntaxException {
+        log.debug("REST request to update Item : {}, {}", id, item);
+        if (item.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "");
+        }
+        if (!Objects.equals(id, item.getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "");
+        }
+
+        if (!itemRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "");
+        }
+
+        Item result = itemService.save(item);
+        return ResponseEntity
+            .ok()
+            .body(result);
+    }
+
 }
