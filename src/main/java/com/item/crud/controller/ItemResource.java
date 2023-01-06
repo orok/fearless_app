@@ -76,5 +76,12 @@ public class ItemResource {
         return ResponseEntity.ok(item.get());
     }
 
-
+    @DeleteMapping("/items/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
+        log.debug("REST request to delete Item : {}", id);
+        itemService.delete(id);
+        return ResponseEntity
+            .noContent()
+            .build();
+    }
 }
