@@ -69,5 +69,12 @@ public class ItemResource {
         return itemService.findAll();
     }
 
+    @GetMapping("/items/{id}")
+    public ResponseEntity<Item> getItem(@PathVariable Long id) {
+        log.debug("REST request to get Item : {}", id);
+        Optional<Item> item = itemService.findOne(id);
+        return ResponseEntity.ok(item.get());
+    }
+
 
 }
