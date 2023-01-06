@@ -63,4 +63,11 @@ public class ItemResource {
             .body(result);
     }
 
+    @GetMapping("/items")
+    public List<Item> getAllItems() {
+        log.debug("REST request to get all Items");
+        return itemService.findAll();
+    }
+
+
 }
