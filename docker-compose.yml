@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  springboot-docker-compose-app-container:
+    image: springboot-docker-compose-app:1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./application:/tmp/springboot-docker-compose-app
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: app
+    driver: bridge
